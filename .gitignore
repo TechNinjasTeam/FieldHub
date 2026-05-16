@@ -1,1 +1,45 @@
+# Claude Code
 /.claude
+
+# ──────────────────────────────────────────────
+# Environment variables
+# ──────────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+.env.development
+.env.test
+.env.production
+
+# ──────────────────────────────────────────────
+# OS-generated files
+# ──────────────────────────────────────────────
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+
+# ──────────────────────────────────────────────
+# Editors & IDEs
+# ──────────────────────────────────────────────
+.vscode/
+!.vscode/extensions.json
+!.vscode/settings.json
+
+.idea/
+*.iml
+
+*.swp
+*.swo
+*.swn
