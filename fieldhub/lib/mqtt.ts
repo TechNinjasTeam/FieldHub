@@ -1,6 +1,6 @@
 import mqtt, { MqttClient } from 'mqtt';
 
-const BROKER_URL = `mqtts://${process.env.MQTT_HOST}:${process.env.MQTT_PORT ?? 8883}`;
+const BROKER_URL = `wss://${process.env.NEXT_PUBLIC_MQTT_HOST}:${process.env.NEXT_PUBLIC_MQTT_PORT ?? 8884}`;
 const TOPIC_SENSORS = 'irrigacao/sensores';
 
 declare global {
@@ -12,8 +12,8 @@ function getClient(): MqttClient {
   if (global._mqttClient) return global._mqttClient;
 
   const client = mqtt.connect(BROKER_URL, {
-    username: process.env.MQTT_USER,
-    password: process.env.MQTT_PASS,
+    username: process.env.MQTT_USERNAME,
+    password: process.env.MQTT_PASSWORD,
     rejectUnauthorized: true,
   });
 
