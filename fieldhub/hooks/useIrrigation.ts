@@ -6,7 +6,7 @@ import type { SensorReading } from '@/lib/types';
 
 const POLL_INTERVAL = 10_000;
 
-export function useIrrigation() {
+export function useIrrigation(interval = POLL_INTERVAL) {
   const [readings, setReadings] = useState<SensorReading[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -18,8 +18,8 @@ export function useIrrigation() {
 
   useEffect(() => {
     fetchReadings();
-    const interval = setInterval(fetchReadings, POLL_INTERVAL);
-    return () => clearInterval(interval);
+    const timer = setInterval(fetchReadings, interval);
+    return () => clearInterval(timer);
   }, [fetchReadings]);
 
   const latestReading = readings[0] ?? null;
