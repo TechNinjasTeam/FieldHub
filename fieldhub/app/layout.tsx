@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import BottomNav from "../components/BottomNav";
 
 export const metadata: Metadata = {
   title: "FieldHub",
-  description: "Plataforma de gestão agrícola IoT",
+  description: "Sistema de Irrigação Inteligente",
 };
 
 export default function RootLayout({
@@ -13,7 +14,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body>{children}</body>
+      <body>
+        <main className="pb-28">{children}</main>
+        <BottomNav />
+      </body>
     </html>
   );
 }
