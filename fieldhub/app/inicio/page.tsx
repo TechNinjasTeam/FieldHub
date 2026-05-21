@@ -1,5 +1,6 @@
-import IrrigationBadge from "../../components/IrrigationBadge";
-import SensorCard from "../../components/SensorCard";
+import IrrigationBadge from "@/components/features/IrrigationBadge";
+import SensorCard from "@/components/features/SensorCard";
+
 
 export default function InicioPage() {
   const humidityHistory = [42, 55, 48, 62, 68, 58, 72];
