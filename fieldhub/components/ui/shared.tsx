@@ -81,6 +81,18 @@ export function Mark({ s = 28, c = "#22c55e" }: { s?: number; c?: string }) {
   );
 }
 
+export function SolarPanel() {
+  return (
+    <g>
+      <rect x="-44" y="-22" width="88" height="50" rx="2" fill="#1a1a1d" stroke="#22c55e" strokeWidth="1.2" transform="skewX(-15)" />
+      <line x1="-44" y1="-6" x2="44" y2="-6" stroke="#22c55e" strokeOpacity="0.4" strokeWidth="0.5" transform="skewX(-15)" />
+      <line x1="-44" y1="12" x2="44" y2="12" stroke="#22c55e" strokeOpacity="0.4" strokeWidth="0.5" transform="skewX(-15)" />
+      <line x1="-15" y1="-22" x2="-15" y2="28" stroke="#22c55e" strokeOpacity="0.4" strokeWidth="0.5" transform="skewX(-15)" />
+      <line x1="15" y1="-22" x2="15" y2="28" stroke="#22c55e" strokeOpacity="0.4" strokeWidth="0.5" transform="skewX(-15)" />
+    </g>
+  );
+}
+
 export function HeroRing({
   pct = 64,
   label = "UMIDADE DO SOLO",
