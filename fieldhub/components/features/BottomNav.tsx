@@ -2,13 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BarChart3, Droplets, Home, User } from "lucide-react";
+import { BarChart3, Home, User } from "lucide-react";
 
 const tabs = [
-  { name: "Inicio", href: "/inicio", icon: Home },
-  { name: "Controle", href: "/dados", icon: Droplets },
-  { name: "Relatorio", href: "/relatorio", icon: BarChart3 },
-  { name: "Perfil", href: "/perfil", icon: User },
+  { name: "INÍCIO", href: "/inicio", icon: Home },
+  { name: "DADOS", href: "/dados", icon: BarChart3 },
+  { name: "PERFIL", href: "/perfil", icon: User },
 ];
 
 export default function BottomNav() {
@@ -26,31 +25,17 @@ export default function BottomNav() {
               key={tab.href}
               href={tab.href}
               className={`
-                group relative flex flex-col items-center gap-1 rounded-2xl px-4 py-2
-                text-xs font-semibold transition-all duration-300
-                hover:-translate-y-2 hover:bg-[#22c55e]/10 hover:text-[#22c55e]
-                ${active ? "text-[#22c55e] bg-[#22c55e]/10" : "text-[#a3a3a3]"}
+                relative flex flex-col items-center gap-1 rounded-2xl px-6 py-2
+                transition-all duration-300
+                ${active ? "text-[#22c55e] bg-[#22c55e]/10" : "text-[#525252] hover:text-[#22c55e] hover:bg-[#22c55e]/10"}
               `}
             >
-              <Icon
-                size={23}
-                className="
-                  transition-all duration-300
-                  group-hover:scale-150
-                  group-hover:drop-shadow-[0_0_12px_rgba(34,197,94,0.9)]
-                "
-              />
-
-              <span className="transition-all duration-300 group-hover:text-[#22c55e]">
+              <Icon size={22} color={active ? "#22c55e" : "#525252"} />
+              <span className="mono" style={{ fontSize: 9, letterSpacing: 0.8 }}>
                 {tab.name}
               </span>
-
               <span
-                className={`
-                  absolute -bottom-1 h-1 rounded-full bg-[#22c55e]
-                  transition-all duration-300
-                  ${active ? "w-7 opacity-100" : "w-0 opacity-0 group-hover:w-7 group-hover:opacity-100"}
-                `}
+                className={`absolute -bottom-1 h-1 rounded-full bg-[#22c55e] transition-all duration-300 ${active ? "w-7 opacity-100" : "w-0 opacity-0"}`}
               />
             </Link>
           );
