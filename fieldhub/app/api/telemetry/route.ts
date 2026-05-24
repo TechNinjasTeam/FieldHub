@@ -3,8 +3,12 @@ import db from '@/lib/db';
 
 function parseLineProtocol(raw: string): { deviceId: number; temperature: number; humidity: number; lux: number | null } | null {
   try {
-    const [measurementPart, fieldsPart] = raw.trim().split(' ');
-    if (!measurementPart || !fieldsPart) return null;
+    const trimmed = raw.trim();
+    const firstSpace = trimmed.indexOf(' ');
+    if (firstSpace === -1) return null;
+
+    const measurementPart = trimmed.slice(0, firstSpace);
+    const fieldsPart = trimmed.slice(firstSpace + 1);
 
     const tagStr = measurementPart.split(',')[1];
     if (!tagStr) return null;
@@ -14,7 +18,10 @@ function parseLineProtocol(raw: string): { deviceId: number; temperature: number
 
     const fields: Record<string, number> = {};
     for (const field of fieldsPart.split(',')) {
-      const [k, v] = field.split('=');
+      const eqIdx = field.indexOf('=');
+      if (eqIdx === -1) continue;
+      const k = field.slice(0, eqIdx).trim();
+      const v = field.slice(eqIdx + 1).trim();
       fields[k] = parseFloat(v);
     }
 
