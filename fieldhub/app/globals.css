@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+@theme {
+  --color-surface: #141413;
+  --color-muted: #737373;
+  --color-subtle: #525252;
+  --color-fg: #fafafa;
+  --color-accent: #22c55e;
+  --color-accent-dark: #16a34a;
+  --color-bg: #0a0a0a;
+}
+
 :root {
   --background: #0a0a0a;
   --foreground: #fafafa;

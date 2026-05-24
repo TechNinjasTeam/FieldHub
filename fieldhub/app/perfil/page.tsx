@@ -18,7 +18,7 @@ export default function PerfilPage() {
   const [notifs, setNotifs] = useState(true);
 
   return (
-    <div style={{ maxWidth: 402, margin: "0 auto", paddingTop: 8 }}>
+    <div className="max-w-[402px] lg:max-w-2xl mx-auto pt-2">
 
       {/* Header */}
       <div style={{ padding: "12px 22px 0" }}>
