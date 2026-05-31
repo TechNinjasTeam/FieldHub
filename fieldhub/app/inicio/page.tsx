@@ -2,8 +2,13 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Bell, ChevronRight, Signal, Zap } from "lucide-react";
-import { BigNum, Label, LiveDot, Wordmark } from "@/components/ui/shared";
+import { Bell, ChevronRight, Power, Signal, Zap } from "lucide-react";
+import { BigNum } from "@/app/shared/components/BigNum";
+import { Card } from "@/app/shared/components/Card";
+import { Label } from "@/app/shared/components/Label";
+import { LiveDot } from "@/app/shared/components/LiveDot";
+import { PageShell } from "@/app/shared/components/PageShell";
+import { Wordmark } from "@/app/shared/components/Wordmark";
 import { useIrrigation } from "@/hooks/useIrrigation";
 
 export default function InicioPage() {
@@ -11,32 +16,19 @@ export default function InicioPage() {
   const battery = 87;
   const signal = 96;
   const router = useRouter();
-  const { sendCommand } = useIrrigation();
+  const { latestReading, sendCommand } = useIrrigation();
 
+  const humidity = Math.round(latestReading?.humidity ?? 0);
+  const temperature = latestReading?.temperature?.toFixed(1) ?? "--";
 
   const handleIrrigating = () => {
-
-    setIrrigating((prev) => !prev)
-
-    if (!irrigating) {
-
-      sendCommand("ON")
-
-    }
-    else {
-
-      sendCommand("OFF")
-
-    }
-
-  }
-
-
+    const next = !irrigating;
+    setIrrigating(next);
+    sendCommand(next ? "ON" : "OFF");
+  };
 
   return (
-    <div style={{ maxWidth: 402, margin: "0 auto", paddingTop: 8 }}>
-
-      {/* Header */}
+    <PageShell>
       <div style={{ padding: "8px 22px 0", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <Wordmark s={20} />
         <button
@@ -46,7 +38,6 @@ export default function InicioPage() {
         </button>
       </div>
 
-      {/* Greeting */}
       <div style={{ padding: "24px 22px 0" }}>
         <Label>BOM DIA</Label>
         <div style={{ fontSize: 30, fontWeight: 600, letterSpacing: -1, marginTop: 6, color: "#fafafa" }}>
@@ -54,11 +45,8 @@ export default function InicioPage() {
         </div>
       </div>
 
-      {/* Device card */}
       <div style={{ padding: "24px 22px 0" }}>
-        <div style={{ background: "#141413", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 24, overflow: "hidden" }}>
-
-          {/* Card header */}
+        <Card radius={24} style={{ overflow: "hidden" }}>
           <div style={{ padding: "20px 20px 16px", display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
             <div>
               <Label>DISPOSITIVO #FH-01</Label>
@@ -70,8 +58,7 @@ export default function InicioPage() {
             <LiveDot />
           </div>
 
-          {/* Device illustration */}
-          <div style={{ position: "relative", height: 200, margin: "4px 16px 0", background: "radial-gradient(ellipse at 50% 100%, rgba(34,197,94,0.12) 0%, transparent 60%)", borderRadius: 16, overflow: "hidden" }}>
+          <div style={{ position: "relative", height: 200, margin: "4px 16px 0", borderRadius: 16, overflow: "hidden" }}>
             <svg viewBox="0 0 320 200" style={{ width: "100%", height: "100%", position: "absolute", inset: 0 }}>
               <line x1="0" y1="160" x2="320" y2="160" stroke="#22c55e" strokeOpacity="0.3" strokeDasharray="2 4" />
               <g transform="translate(160 60)">
@@ -93,7 +80,6 @@ export default function InicioPage() {
               ))}
               <path d="M 80 50 Q 100 30 130 45" stroke="#22c55e" strokeOpacity="0.3" strokeDasharray="2 3" fill="none" />
             </svg>
-            {/* Status badges */}
             <div style={{ position: "absolute", top: 12, left: 12, right: 12, display: "flex", justifyContent: "space-between" }}>
               <div style={{ background: "rgba(10,10,10,0.6)", backdropFilter: "blur(8px)", padding: "5px 10px", borderRadius: 999, display: "flex", gap: 6, alignItems: "center" }}>
                 <Zap size={11} color="#22c55e" fill="#22c55e" />
@@ -106,7 +92,6 @@ export default function InicioPage() {
             </div>
           </div>
 
-          {/* Status row */}
           <div style={{ padding: "14px 20px", display: "flex", justifyContent: "space-between", alignItems: "center", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
             <div>
               <Label>STATUS</Label>
@@ -121,7 +106,7 @@ export default function InicioPage() {
               CONFIGURAR
             </button>
           </div>
-        </div>
+        </Card>
       </div>
 
       <div style={{ padding: "20px 22px 0" }}>
@@ -144,7 +129,7 @@ export default function InicioPage() {
           }}
         >
           <div style={{ width: 56, height: 56, borderRadius: "50%", background: irrigating ? "rgba(10,10,10,0.18)" : "rgba(34,197,94,0.12)", display: "grid", placeItems: "center", flexShrink: 0 }}>
-            <PowerIcon on={irrigating} />
+            <Power size={26} color={irrigating ? "#0a0a0a" : "#22c55e"} />
           </div>
           <div style={{ flex: 1 }}>
             <div style={{ fontSize: 17, fontWeight: 600, letterSpacing: -0.3 }}>
@@ -161,28 +146,20 @@ export default function InicioPage() {
       <div style={{ padding: "20px 22px 0" }}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
           {[
-            { label: "UMIDADE", val: "64", u: "%" },
-            { label: "TEMP", val: "24.2", u: "°C" },
+            { label: "UMIDADE", val: String(humidity), u: "%" },
+            { label: "TEMP", val: temperature, u: "°C" },
             { label: "GERAÇÃO", val: "8.4", u: "kWh" },
             { label: "VAZÃO", val: irrigating ? "14.2" : "0", u: "m³/h", highlight: irrigating },
           ].map((card, i) => (
-            <div key={i} style={{ background: "#141413", border: "1px solid rgba(255,255,255,0.05)", borderRadius: 14, padding: "14px 16px" }}>
+            <Card key={i} radius={14} style={{ padding: "14px 16px" }}>
               <Label>{card.label}</Label>
               <BigNum n={card.val} unit={card.u} size={32} unitSize={13} color={card.highlight ? "#22c55e" : "#fafafa"} />
-            </div>
+            </Card>
           ))}
         </div>
       </div>
 
       <div style={{ height: 8 }} />
-    </div>
-  );
-}
-
-function PowerIcon({ on }: { on: boolean }) {
-  return (
-    <svg width={26} height={26} viewBox="0 0 24 24" fill={on ? "#0a0a0a" : "#22c55e"}>
-      <path d="M12 3a1 1 0 0 1 1 1v8a1 1 0 1 1-2 0V4a1 1 0 0 1 1-1Zm-5.4 3.5a1 1 0 0 1 0 1.4A6 6 0 1 0 18 12a6 6 0 0 0-1.6-4.1 1 1 0 1 1 1.5-1.3A8 8 0 1 1 5.2 6.5a1 1 0 0 1 1.4 0Z" />
-    </svg>
+    </PageShell>
   );
 }

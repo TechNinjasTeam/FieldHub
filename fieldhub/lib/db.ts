@@ -10,7 +10,7 @@ db.exec(`
     temperature REAL,
     humidity    REAL,
     lux         REAL,
-    recorded_at TEXT DEFAULT (datetime('now'))
+    recorded_at TEXT DEFAULT (datetime('now', 'localtime'))
   );
 
   CREATE TABLE IF NOT EXISTS irrigation_log (
@@ -18,7 +18,7 @@ db.exec(`
     device_id  INTEGER,
     action     TEXT,
     trigger    TEXT,
-    created_at TEXT DEFAULT (datetime('now'))
+    created_at TEXT DEFAULT (datetime('now', 'localtime'))
   );
 `);
 

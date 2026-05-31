@@ -3,10 +3,10 @@ import db from '@/lib/db';
 import type { SensorReading } from '@/lib/types';
 
 const PERIOD_MAP: Record<string, string> = {
-  '24h': "datetime('now', '-1 day')",
-  '7d':  "datetime('now', '-7 days')",
-  '30d': "datetime('now', '-30 days')",
-  '90d': "datetime('now', '-90 days')",
+  '24h': "datetime('now', 'localtime', '-1 day')",
+  '7d':  "datetime('now', 'localtime', '-7 days')",
+  '30d': "datetime('now', 'localtime', '-30 days')",
+  '90d': "datetime('now', 'localtime', '-90 days')",
 };
 
 export async function GET(req: NextRequest) {
