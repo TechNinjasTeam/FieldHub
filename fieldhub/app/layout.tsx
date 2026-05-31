@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import BottomNav from "@/components/features/BottomNav";
+import BottomNav from "@/app/shared/components/BottomNav";
 
 export const metadata: Metadata = {
   title: "FieldHub",

@@ -2,7 +2,10 @@
 
 import { useState } from "react";
 import { ChevronRight, Plus, Sun } from "lucide-react";
-import { BigNum, Label, Mark, Wordmark } from "@/components/ui/shared";
+import { BigNum } from "@/app/shared/components/BigNum";
+import { Label } from "@/app/shared/components/Label";
+import { Wordmark } from "@/app/shared/components/Wordmark";
+import { Mark } from "./components/Mark";
 
 const ACCOUNT_ROWS = [
   { label: "Plano", sub: "FieldHub Solo · grátis" },
