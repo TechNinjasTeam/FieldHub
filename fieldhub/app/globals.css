@@ -16,9 +16,7 @@ body {
   min-height: 100%;
   overflow-x: hidden;
   background:
-    radial-gradient(circle at top, rgba(34, 197, 94, 0.18), transparent 32%),
     #0a0a0a;
-  color: var(--foreground);
 }
 
 body {

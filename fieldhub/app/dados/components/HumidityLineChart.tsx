@@ -1,0 +1,86 @@
+"use client";
+
+import {
+  AreaChart,
+  Area,
+  XAxis,
+  ReferenceLine,
+  ResponsiveContainer,
+} from "recharts";
+import type { SensorReading } from "@/lib/types";
+
+type DotProps = { cx?: number; cy?: number; index?: number };
+
+function formatLabel(recorded_at: string, period: string): string {
+  const d = new Date(recorded_at);
+  if (period === "24h") return d.getHours().toString().padStart(2, "0") + "H";
+  if (period === "7d") return ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"][d.getDay()];
+  if (period === "30d") return `${d.getDate()}/${d.getMonth() + 1}`;
+  return `${d.getMonth() + 1}/${String(d.getFullYear()).slice(2)}`;
+}
+
+export function HumidityLineChart({
+  data,
+  period,
+}: {
+  data: SensorReading[];
+  period: string;
+}) {
+  const chartData = data.map((r, i) => ({
+    idx: i,
+    h: r.humidity,
+    recorded_at: r.recorded_at,
+  }));
+
+  const lastIdx = chartData.length - 1;
+
+  const tickIndices = [...new Set(
+    chartData.length > 1
+      ? [0, Math.floor(lastIdx * 0.25), Math.floor(lastIdx * 0.5), Math.floor(lastIdx * 0.75), lastIdx]
+      : [0]
+  )];
+
+  return (
+    <ResponsiveContainer width="100%" height={130}>
+      <AreaChart data={chartData} margin={{ top: 10, right: 0, left: 0, bottom: 0 }}>
+        <defs>
+          <linearGradient id="lineChartFill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stopColor="#22c55e" stopOpacity={0.3} />
+            <stop offset="1" stopColor="#22c55e" stopOpacity={0} />
+          </linearGradient>
+        </defs>
+        <XAxis
+          dataKey="idx"
+          type="number"
+          domain={[0, Math.max(lastIdx, 1)]}
+          ticks={tickIndices}
+          tickFormatter={(i) => formatLabel(chartData[i]?.recorded_at ?? "", period)}
+          tick={{ fill: "#525252", fontSize: 10, fontFamily: "Geist Mono, monospace", letterSpacing: 0.5 }}
+          axisLine={false}
+          tickLine={false}
+        />
+        <ReferenceLine y={35} stroke="#f59e0b" strokeDasharray="3 4" strokeOpacity={0.6} />
+        <Area
+          type="monotone"
+          dataKey="h"
+          stroke="#22c55e"
+          strokeWidth={2}
+          fill="url(#lineChartFill)"
+          strokeLinecap="round"
+          isAnimationActive={false}
+          dot={(props: DotProps) => {
+            if (props.index !== lastIdx || props.cx == null || props.cy == null)
+              return <g key={props.index ?? 0} />;
+            return (
+              <g key="end-dot">
+                <circle cx={props.cx} cy={props.cy} r={6} fill="#22c55e" fillOpacity={0.2} />
+                <circle cx={props.cx} cy={props.cy} r={3.5} fill="#22c55e" />
+              </g>
+            );
+          }}
+          activeDot={false}
+        />
+      </AreaChart>
+    </ResponsiveContainer>
+  );
+}

@@ -14,9 +14,7 @@ export async function POST(req: NextRequest) {
 
   const payload: CommandPayload = { action: body.action };
   const deviceId = body.device_id ?? 1;
-/*Define o tópico MQ*/
   publish(TOPIC_COMMAND, payload.action);
-/*publica on ou off*/
   db.prepare('INSERT INTO irrigation_log (device_id, action, trigger) VALUES (?, ?, ?)')
     .run(deviceId, payload.action, 'manual');
 
