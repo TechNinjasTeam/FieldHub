@@ -30,6 +30,5 @@ export async function sendCommand(action: 'ON' | 'OFF'): Promise<void> {
       body: JSON.stringify({ action }),
     });
   } catch {
-    // silencia falha de comando quando banco/servidor indisponível
   }
 }

@@ -23,12 +23,10 @@ export default function PerfilPage() {
   return (
     <div style={{ maxWidth: 402, margin: "0 auto", paddingTop: 8 }}>
 
-      {/* Header */}
       <div style={{ padding: "12px 22px 0" }}>
         <Label>PERFIL</Label>
       </div>
 
-      {/* Identity */}
       <div style={{ padding: "14px 22px 0", display: "flex", alignItems: "center", gap: 16 }}>
         <div style={{ width: 64, height: 64, borderRadius: "50%", background: "linear-gradient(135deg,#22c55e,#16a34a)", display: "grid", placeItems: "center", color: "#0a0a0a", fontSize: 22, fontWeight: 700, letterSpacing: -0.5, flexShrink: 0 }}>
           JM
@@ -40,7 +38,6 @@ export default function PerfilPage() {
         </div>
       </div>
 
-      {/* Account stats */}
       <div style={{ padding: "24px 22px 0" }}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", background: "#141413", border: "1px solid rgba(255,255,255,0.05)", borderRadius: 14, overflow: "hidden" }}>
           {[
@@ -61,7 +58,6 @@ export default function PerfilPage() {
         </div>
       </div>
 
-      {/* Devices section */}
       <div style={{ padding: "28px 22px 0" }}>
         <Label>DISPOSITIVOS</Label>
         <div style={{ background: "#141413", border: "1px solid rgba(255,255,255,0.05)", borderRadius: 14, marginTop: 10, overflow: "hidden" }}>
@@ -84,11 +80,9 @@ export default function PerfilPage() {
         </div>
       </div>
 
-      {/* Automation section */}
       <div style={{ padding: "24px 22px 0" }}>
         <Label>AUTOMAÇÃO</Label>
         <div style={{ background: "#141413", border: "1px solid rgba(255,255,255,0.05)", borderRadius: 14, marginTop: 10, padding: "18px 20px" }}>
-          {/* Auto mode toggle */}
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
             <div>
               <div style={{ fontSize: 14, fontWeight: 500, color: "#fafafa" }}>Irrigação automática</div>
@@ -96,7 +90,6 @@ export default function PerfilPage() {
             </div>
             <Toggle on={autoMode} onToggle={() => setAutoMode((v) => !v)} />
           </div>
-          {/* Threshold slider */}
           <div style={{ paddingTop: 14, borderTop: "1px solid rgba(255,255,255,0.06)" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
               <Label>LIMITE DE UMIDADE</Label>
@@ -120,11 +113,9 @@ export default function PerfilPage() {
         </div>
       </div>
 
-      {/* Account settings */}
       <div style={{ padding: "24px 22px 0" }}>
         <Label>CONTA</Label>
         <div style={{ background: "#141413", border: "1px solid rgba(255,255,255,0.05)", borderRadius: 14, marginTop: 10, overflow: "hidden" }}>
-          {/* Notifications row (with toggle) */}
           <div style={{ padding: "14px 18px", display: "flex", alignItems: "center", gap: 14, cursor: "pointer" }}>
             <div style={{ flex: 1 }}>
               <div style={{ fontSize: 14, fontWeight: 500, color: "#fafafa" }}>Notificações</div>
@@ -132,7 +123,6 @@ export default function PerfilPage() {
             </div>
             <Toggle on={notifs} onToggle={() => setNotifs((v) => !v)} />
           </div>
-          {/* Other rows */}
           {ACCOUNT_ROWS.map((row, i) => (
             <div
               key={i}
@@ -148,7 +138,6 @@ export default function PerfilPage() {
         </div>
       </div>
 
-      {/* Footer */}
       <div style={{ padding: "32px 22px 0", display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
         <Mark s={20} />
         <Wordmark s={13} />
