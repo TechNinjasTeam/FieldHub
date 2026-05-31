@@ -55,10 +55,7 @@ export default function DadosPage() {
       </div>
 
       <div style={{ padding: "0 22px", textAlign: "center" }}>
-        <div style={{ fontSize: 14, color: "#a3a3a3", maxWidth: 280, margin: "0 auto" }}>
-          <span style={{ color: "#22c55e", fontWeight: 500 }}>↑ 6%</span> em relação a ontem.
-          Limite de irrigação em <span className="mono">35%</span>.
-        </div>
+
       </div>
 
       <div style={{ padding: "24px 22px 0", display: "flex", gap: 6, justifyContent: "center" }}>
