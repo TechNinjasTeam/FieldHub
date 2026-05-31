@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Bell, ChevronRight, Signal, Zap } from "lucide-react";
+import { Bell, ChevronRight, Power, Signal, Zap } from "lucide-react";
 import { BigNum } from "@/app/shared/components/BigNum";
 import { Card } from "@/app/shared/components/Card";
 import { Label } from "@/app/shared/components/Label";
@@ -129,7 +129,7 @@ export default function InicioPage() {
           }}
         >
           <div style={{ width: 56, height: 56, borderRadius: "50%", background: irrigating ? "rgba(10,10,10,0.18)" : "rgba(34,197,94,0.12)", display: "grid", placeItems: "center", flexShrink: 0 }}>
-            <PowerIcon on={irrigating} />
+            <Power size={26} color={irrigating ? "#0a0a0a" : "#22c55e"} />
           </div>
           <div style={{ flex: 1 }}>
             <div style={{ fontSize: 17, fontWeight: 600, letterSpacing: -0.3 }}>
@@ -161,13 +161,5 @@ export default function InicioPage() {
 
       <div style={{ height: 8 }} />
     </PageShell>
-  );
-}
-
-function PowerIcon({ on }: { on: boolean }) {
-  return (
-    <svg width={26} height={26} viewBox="0 0 24 24" fill={on ? "#0a0a0a" : "#22c55e"}>
-      <path d="M12 3a1 1 0 0 1 1 1v8a1 1 0 1 1-2 0V4a1 1 0 0 1 1-1Zm-5.4 3.5a1 1 0 0 1 0 1.4A6 6 0 1 0 18 12a6 6 0 0 0-1.6-4.1 1 1 0 1 1 1.5-1.3A8 8 0 1 1 5.2 6.5a1 1 0 0 1 1.4 0Z" />
-    </svg>
   );
 }
