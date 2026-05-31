@@ -5,7 +5,6 @@ import { ChevronRight, Plus, Sun } from "lucide-react";
 import { BigNum } from "@/app/shared/components/BigNum";
 import { Label } from "@/app/shared/components/Label";
 import { Wordmark } from "@/app/shared/components/Wordmark";
-import { Mark } from "./components/Mark";
 
 const ACCOUNT_ROWS = [
   { label: "Plano", sub: "FieldHub Solo · grátis" },
@@ -139,7 +138,6 @@ export default function PerfilPage() {
       </div>
 
       <div style={{ padding: "32px 22px 0", display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
-        <Mark s={20} />
         <Wordmark s={13} />
         <div className="mono" style={{ fontSize: 10, color: "#525252", letterSpacing: 0.6 }}>VERSÃO 1.0 · 2026</div>
       </div>
