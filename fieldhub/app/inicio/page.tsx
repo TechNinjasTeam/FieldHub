@@ -6,7 +6,6 @@ import { Bell, ChevronRight, Power, Signal, Zap } from "lucide-react";
 import { BigNum } from "@/app/shared/components/BigNum";
 import { Card } from "@/app/shared/components/Card";
 import { Label } from "@/app/shared/components/Label";
-import { LiveDot } from "@/app/shared/components/LiveDot";
 import { PageShell } from "@/app/shared/components/PageShell";
 import { Wordmark } from "@/app/shared/components/Wordmark";
 import { useIrrigation } from "@/hooks/useIrrigation";
@@ -55,7 +54,6 @@ export default function InicioPage() {
               </div>
               <div style={{ fontSize: 13, color: "#737373", marginTop: 2 }}>Lote A · Várzea Alta</div>
             </div>
-            <LiveDot />
           </div>
 
           <div style={{ position: "relative", height: 200, margin: "4px 16px 0", borderRadius: 16, overflow: "hidden" }}>

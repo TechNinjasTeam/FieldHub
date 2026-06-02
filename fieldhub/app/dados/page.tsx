@@ -5,7 +5,6 @@ import { Droplets, Sun, Thermometer, Zap } from "lucide-react";
 import { BigNum } from "@/app/shared/components/BigNum";
 import { Card } from "@/app/shared/components/Card";
 import { Label } from "@/app/shared/components/Label";
-import { LiveDot } from "@/app/shared/components/LiveDot";
 import { PageShell } from "@/app/shared/components/PageShell";
 import { useHistory } from "@/hooks/useHistory";
 import { useIrrigation } from "@/hooks/useIrrigation";
@@ -47,7 +46,6 @@ export default function DadosPage() {
             Lote A · Várzea Alta
           </div>
         </div>
-        <LiveDot />
       </div>
 
       <div style={{ display: "grid", placeItems: "center", padding: "24px 0 8px" }}>
