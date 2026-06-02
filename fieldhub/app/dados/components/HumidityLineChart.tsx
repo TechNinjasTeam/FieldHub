@@ -4,6 +4,7 @@ import {
   AreaChart,
   Area,
   XAxis,
+  Tooltip,
   ReferenceLine,
   ResponsiveContainer,
 } from "recharts";
@@ -11,8 +12,23 @@ import type { SensorReading } from "@/lib/types";
 
 type DotProps = { cx?: number; cy?: number; index?: number };
 
-function formatLabel(recorded_at: string, period: string): string {
-  const d = new Date(recorded_at);
+const INTERVAL_MS: Record<string, number> = {
+  "24h": 6 * 3_600_000,
+  "7d":  86_400_000,
+  "30d": 7 * 86_400_000,
+  "90d": 30 * 86_400_000,
+};
+
+function generateTicks(start: number, end: number, period: string): number[] {
+  const interval = INTERVAL_MS[period] ?? 6 * 3_600_000;
+  const ticks: number[] = [];
+  let t = Math.ceil(start / interval) * interval;
+  while (t <= end) { ticks.push(t); t += interval; }
+  return ticks;
+}
+
+function formatTick(ts: number, period: string): string {
+  const d = new Date(ts);
   if (period === "24h") return d.getHours().toString().padStart(2, "0") + "H";
   if (period === "7d") return ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"][d.getDay()];
   if (period === "30d") return `${d.getDate()}/${d.getMonth() + 1}`;
@@ -26,19 +42,15 @@ export function HumidityLineChart({
   data: SensorReading[];
   period: string;
 }) {
-  const chartData = data.map((r, i) => ({
-    idx: i,
+  const chartData = data.map((r) => ({
+    ts: new Date(r.recorded_at).getTime(),
     h: r.humidity,
-    recorded_at: r.recorded_at,
   }));
 
   const lastIdx = chartData.length - 1;
-
-  const tickIndices = [...new Set(
-    chartData.length > 1
-      ? [0, Math.floor(lastIdx * 0.25), Math.floor(lastIdx * 0.5), Math.floor(lastIdx * 0.75), lastIdx]
-      : [0]
-  )];
+  const tsStart = chartData[0]?.ts ?? 0;
+  const tsEnd = chartData[lastIdx]?.ts ?? 0;
+  const ticks = generateTicks(tsStart, tsEnd, period);
 
   return (
     <ResponsiveContainer width="100%" height={130}>
@@ -50,14 +62,26 @@ export function HumidityLineChart({
           </linearGradient>
         </defs>
         <XAxis
-          dataKey="idx"
+          dataKey="ts"
           type="number"
-          domain={[0, Math.max(lastIdx, 1)]}
-          ticks={tickIndices}
-          tickFormatter={(i) => formatLabel(chartData[i]?.recorded_at ?? "", period)}
+          domain={[tsStart, tsEnd]}
+          ticks={ticks}
+          tickFormatter={(ts) => formatTick(ts, period)}
           tick={{ fill: "#525252", fontSize: 10, fontFamily: "Geist Mono, monospace", letterSpacing: 0.5 }}
           axisLine={false}
           tickLine={false}
+        />
+        <Tooltip
+          cursor={{ stroke: "rgba(255,255,255,0.08)", strokeWidth: 1 }}
+          content={({ active, payload, label }) => {
+            if (!active || !payload?.length) return null;
+            return (
+              <div style={{ background: "#171717", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 8, padding: "6px 10px", fontFamily: "Geist Mono, monospace", fontSize: 11, letterSpacing: 0.4 }}>
+                <div style={{ color: "#737373" }}>{formatTick(label as number, period)}</div>
+                <div style={{ color: "#22c55e", fontWeight: 600, marginTop: 2 }}>{payload[0].value}%</div>
+              </div>
+            );
+          }}
         />
         <ReferenceLine y={35} stroke="#f59e0b" strokeDasharray="3 4" strokeOpacity={0.6} />
         <Area
