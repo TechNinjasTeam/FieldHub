@@ -78,16 +78,6 @@ export default function InicioPage() {
               ))}
               <path d="M 80 50 Q 100 30 130 45" stroke="#22c55e" strokeOpacity="0.3" strokeDasharray="2 3" fill="none" />
             </svg>
-            <div style={{ position: "absolute", top: 12, left: 12, right: 12, display: "flex", justifyContent: "space-between" }}>
-              <div style={{ background: "rgba(10,10,10,0.6)", backdropFilter: "blur(8px)", padding: "5px 10px", borderRadius: 999, display: "flex", gap: 6, alignItems: "center" }}>
-                <Zap size={11} color="#22c55e" fill="#22c55e" />
-                <span className="mono" style={{ fontSize: 10, color: "#fafafa", letterSpacing: 0.4 }}>{battery}%</span>
-              </div>
-              <div style={{ background: "rgba(10,10,10,0.6)", backdropFilter: "blur(8px)", padding: "5px 10px", borderRadius: 999, display: "flex", gap: 6, alignItems: "center" }}>
-                <Signal size={10} color="#22c55e" />
-                <span className="mono" style={{ fontSize: 10, color: "#fafafa", letterSpacing: 0.4 }}>{signal}%</span>
-              </div>
-            </div>
           </div>
 
           <div style={{ padding: "14px 20px", display: "flex", justifyContent: "space-between", alignItems: "center", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
@@ -146,12 +136,10 @@ export default function InicioPage() {
           {[
             { label: "UMIDADE", val: String(humidity), u: "%" },
             { label: "TEMP", val: temperature, u: "°C" },
-            { label: "GERAÇÃO", val: "8.4", u: "kWh" },
-            { label: "VAZÃO", val: irrigating ? "14.2" : "0", u: "m³/h", highlight: irrigating },
           ].map((card, i) => (
             <Card key={i} radius={14} style={{ padding: "14px 16px" }}>
               <Label>{card.label}</Label>
-              <BigNum n={card.val} unit={card.u} size={32} unitSize={13} color={card.highlight ? "#22c55e" : "#fafafa"} />
+              <BigNum n={card.val} unit={card.u} size={32} unitSize={13} color={"#fafafa"} />
             </Card>
           ))}
         </div>

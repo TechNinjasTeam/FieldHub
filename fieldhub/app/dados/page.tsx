@@ -99,9 +99,9 @@ export default function DadosPage() {
         <Card style={{ display: "grid", gridTemplateColumns: "1fr 1fr", overflow: "hidden" }}>
           {[
             { label: "TEMPERATURA", val: temperature, u: "°C", Icon: Thermometer, highlight: false },
-            { label: "GERAÇÃO SOLAR", val: "8.4", u: "kWh", Icon: Sun, highlight: true },
-            { label: "BATERIA", val: "87", u: "%", Icon: Zap, highlight: false },
-            { label: "VAZÃO HOJE", val: "1.4", u: "m³", Icon: Droplets, highlight: false },
+            { label: "GERAÇÃO SOLAR", val: "--", u: "kWh", Icon: Sun, highlight: true },
+            { label: "BATERIA", val: "--", u: "%", Icon: Zap, highlight: false },
+            { label: "VAZÃO HOJE", val: "--", u: "m³", Icon: Droplets, highlight: false },
           ].map((stat, i) => (
             <div
               key={i}
